@@ -2,18 +2,18 @@ package ru.auskov.kointest.data
 
 class BTConnection {
     fun connect() {
-        println("Connect to server")
+        println("Connect to server via bluetooth")
     }
 
     fun disconnect() {
-        println("Disconnect from server")
+        println("Disconnect from server via bluetooth")
     }
 
     fun sentToServer(data: String) {
-        println("Send data to server: $data")
+        println("Send data to server via bluetooth: $data")
     }
 
     fun getDataFromServer(): String {
-        return "Get data from server"
+        return "Hello bluetooth"
     }
 }

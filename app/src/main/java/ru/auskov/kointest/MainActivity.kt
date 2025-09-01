@@ -11,7 +11,8 @@ import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.tooling.preview.Preview
-import org.koin.android.ext.android.inject
+// import org.koin.android.ext.android.inject
+import org.koin.java.KoinJavaComponent.getKoin
 import ru.auskov.kointest.data.MainConnection
 import ru.auskov.kointest.ui.theme.KoinTestTheme
 
@@ -19,12 +20,15 @@ import ru.auskov.kointest.ui.theme.KoinTestTheme
 // https://insert-koin.io/docs/quickstart/kotlin
 
 class MainActivity : ComponentActivity() {
-    private val mainConnection: MainConnection by inject()
+    private val mainScope = getKoin().createScope<MainActivity>()
+    private val mainConnection: MainConnection = mainScope.get()
+
+    // private val mainConnection: MainConnection by inject()
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         mainConnection.connect()
-        mainConnection.sentToServer("Hello world")
+        mainConnection.sentToServer("Hello Kotlin")
         val data = mainConnection.getDataFromServer()
         println("Received data from server: $data")
 
@@ -41,6 +45,11 @@ class MainActivity : ComponentActivity() {
                 }
             }
         }
+    }
+
+    override fun onDestroy() {
+        super.onDestroy()
+        mainScope.close()
     }
 }
 

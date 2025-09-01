@@ -1,19 +1,23 @@
 package ru.auskov.kointest.data
 
-class MainConnection {
+class MainConnection(private val btConnection: BTConnection) {
     fun connect() {
         println("Connect to server")
+        btConnection.connect()
     }
 
     fun disconnect() {
         println("Disconnect from server")
+        btConnection.disconnect()
     }
 
     fun sentToServer(data: String) {
         println("Send data to server: $data")
+        btConnection.sentToServer(data)
     }
 
     fun getDataFromServer(): String {
-        return "Hello World"
+        //return "Hello Kotlin"
+        return btConnection.getDataFromServer()
     }
 }

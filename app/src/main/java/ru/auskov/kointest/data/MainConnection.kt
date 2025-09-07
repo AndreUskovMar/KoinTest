@@ -1,9 +1,9 @@
 package ru.auskov.kointest.data
 
 class MainConnection(private val btConnection: BTConnection) {
-    fun connect() {
+    fun connect(): String {
         println("Connect to server")
-        btConnection.connect()
+        return btConnection.connect()
     }
 
     fun disconnect() {

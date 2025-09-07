@@ -1,8 +1,10 @@
 package ru.auskov.kointest.data
 
 class BTConnection {
-    fun connect() {
-        println("Connect to server via bluetooth")
+    fun connect(): String {
+        val status = "Connect to server"
+        println(status)
+        return status
     }
 
     fun disconnect() {

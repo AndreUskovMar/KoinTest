@@ -11,19 +11,24 @@ import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.tooling.preview.Preview
+import org.koin.android.scope.AndroidScopeComponent
+import org.koin.androidx.scope.activityScope
 // import org.koin.android.ext.android.inject
-import org.koin.java.KoinJavaComponent.getKoin
+// import org.koin.java.KoinJavaComponent.getKoin
 import ru.auskov.kointest.data.MainConnection
 import ru.auskov.kointest.ui.theme.KoinTestTheme
 
 
 // https://insert-koin.io/docs/quickstart/kotlin
 
-class MainActivity : ComponentActivity() {
-    private val mainScope = getKoin().createScope<MainActivity>()
-    private val mainConnection: MainConnection = mainScope.get()
+class MainActivity : ComponentActivity(), AndroidScopeComponent {
+    // private val mainScope = getKoin().createScope<MainActivity>()
+    // private val mainConnection: MainConnection = mainScope.get()
 
     // private val mainConnection: MainConnection by inject()
+
+    override val scope by activityScope()
+    private val mainConnection: MainConnection by scope.inject()
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -45,11 +50,6 @@ class MainActivity : ComponentActivity() {
                 }
             }
         }
-    }
-
-    override fun onDestroy() {
-        super.onDestroy()
-        mainScope.close()
     }
 }
 
